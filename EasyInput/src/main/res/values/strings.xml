@@ -1,0 +1,13 @@
+<resources>
+    <string name="enter_your_username">Enter your username</string>
+    <string name="dd">DD</string>
+    <string name="mm">MM</string>
+    <string name="yyyy">YYYY</string>
+    <string name="forwardSlash">/</string>
+    <string name="enter_your_phone_number">Enter your phone number</string>
+    <string name="enter_your_password">Enter your password</string>
+    <string name="confirm_your_password">Confirm your password</string>
+    <string name="enter_the_url_here">Enter the URL here</string>
+    <string name="enter_your_email">Enter your email</string>
+    <string name="enter_your_age">Enter your age</string>
+</resources>

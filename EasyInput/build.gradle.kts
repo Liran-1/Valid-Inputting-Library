@@ -1,19 +1,16 @@
 plugins {
-    alias(libs.plugins.android.application)
+    alias(libs.plugins.android.library)
 }
 
 android {
-    namespace = "com.example.validinputting"
+    namespace = "com.example.easyinput"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.validinputting"
         minSdk = 26
-        targetSdk = 34
-        versionCode = 1
-        versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles("consumer-rules.pro")
     }
 
     buildTypes {
@@ -30,7 +27,6 @@ android {
 
 dependencies {
 
-    implementation(project(":EasyInput"))
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.activity)

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.textfield.TextInputLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/age_TIL_enterYourAge"
+    style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="12dp"
+    app:counterEnabled="true"
+    app:counterMaxLength="3"
+    app:endIconMode="clear_text"
+    app:errorEnabled="true"
+    app:errorIconDrawable="@drawable/error_icon"
+    app:helperText="Required*"
+    app:startIconDrawable="@drawable/age_icon"
+    tools:context=".customviews.AgeInputView">
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/age_ETXT_enterYourAge"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:inputType="number"
+        android:maxLength="3"
+        android:padding="16dp"
+        android:textSize="20sp" />
+
+</com.google.android.material.textfield.TextInputLayout>

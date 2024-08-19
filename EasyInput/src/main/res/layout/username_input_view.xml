@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.textfield.TextInputLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/username_TIL_enterUsername"
+    style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:hint="@string/enter_your_username"
+    app:endIconMode="clear_text"
+    app:errorEnabled="true"
+    app:errorIconDrawable="@drawable/error_icon"
+    app:helperText="Required*"
+    app:startIconDrawable="@drawable/username_icon"
+    tools:context=".customviews.UsernameInputView">
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/username_ETXT_enterUsername"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="text"
+        android:padding="16dp"
+        android:textSize="18sp" />
+
+</com.google.android.material.textfield.TextInputLayout>

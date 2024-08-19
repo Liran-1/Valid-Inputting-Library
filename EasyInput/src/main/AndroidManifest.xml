@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <application>
+        <activity
+            android:name=".customviews.AgeInputView"
+            android:exported="false" />
+        <activity
+            android:name=".customviews.PhoneInputView"
+            android:exported="false" />
+        <activity
+            android:name=".customviews.PasswordInputView"
+            android:exported="false" />
+        <activity
+            android:name=".customviews.UrlInputView"
+            android:exported="false" />
+        <activity
+            android:name=".customviews.DateInputView"
+            android:exported="false" />
+        <activity
+            android:name=".customviews.UsernameInputView"
+            android:exported="false" />
+    </application>
+
+</manifest>

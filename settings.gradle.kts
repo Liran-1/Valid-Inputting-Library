@@ -21,4 +21,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "ValidInputting"
 include(":app")
- 
+include(":EasyInput")

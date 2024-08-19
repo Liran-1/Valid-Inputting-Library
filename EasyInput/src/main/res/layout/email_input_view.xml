@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<com.google.android.material.textfield.TextInputLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/email_TIL_enterYourEmail"
+    style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="12dp"
+    android:hint="@string/enter_your_email"
+    app:endIconMode="clear_text"
+    app:errorEnabled="true"
+    app:errorIconDrawable="@drawable/error_icon"
+    app:helperText="Required*"
+    app:startIconDrawable="@drawable/email_icon"
+    tools:context=".customviews.EmailInputView">
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/email_ETXT_enterYourEmail"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:inputType="textEmailAddress"
+        android:padding="16dp"
+        android:textSize="18sp" />
+
+</com.google.android.material.textfield.TextInputLayout>
