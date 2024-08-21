@@ -1,100 +1,126 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_margin="12dp"
+<com.google.android.material.textfield.TextInputLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/date_TIL_enterDate"
+    style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="12dp"
+    android:hint="@string/enter_date"
+    app:endIconMode="clear_text"
+    app:errorEnabled="true"
+    app:errorIconDrawable="@drawable/error_icon"
+    app:startIconDrawable="@drawable/date_icon"
+    tools:context=".customviews.DateInputView">
 
-    android:orientation="horizontal"
-    android:padding="8dp">
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/date_ETXT_enterDate"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:inputType="date"
+        android:keyboardNavigationCluster="false"
+        android:padding="16dp"
+        android:textSize="18sp" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="0dp"
-        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
-        app:counterEnabled="true"
-        app:counterMaxLength="3"
-        app:endIconMode="clear_text"
-        app:errorEnabled="true"
-        app:errorIconDrawable="@drawable/error_icon"
-        app:helperText="Required*"
-        app:startIconDrawable="@drawable/date_icon"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:hint="@string/dd">
+</com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/day_input"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="@string/dd"
-            android:inputType="number"
-            android:maxLength="2"
-            android:padding="16dp"
-            android:textSize="18sp" />
-    </com.google.android.material.textfield.TextInputLayout>
+    <!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--    android:layout_width="wrap_content"-->
+    <!--    android:layout_height="wrap_content"-->
+    <!--    android:layout_margin="12dp"-->
+    <!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
 
-    <com.google.android.material.textview.MaterialTextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/forwardSlash"
-        android:textSize="32sp" />
+    <!--    android:orientation="horizontal"-->
+    <!--    android:padding="8dp">-->
 
-    <com.google.android.material.textfield.TextInputLayout
-        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
-        app:counterEnabled="true"
-        app:counterMaxLength="3"
-        app:endIconMode="clear_text"
-        app:errorEnabled="true"
-        app:errorIconDrawable="@drawable/error_icon"
-        app:helperText="Required*"
-        app:startIconDrawable="@drawable/date_icon"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:hint="@string/mm">
+    <!--    <com.google.android.material.textfield.TextInputLayout-->
+    <!--        android:layout_width="0dp"-->
+    <!--        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"-->
+    <!--        app:counterEnabled="true"-->
+    <!--        app:counterMaxLength="3"-->
+    <!--        app:endIconMode="clear_text"-->
+    <!--        app:errorEnabled="true"-->
+    <!--        app:errorIconDrawable="@drawable/error_icon"-->
+    <!--        app:helperText="Required*"-->
+    <!--        app:startIconDrawable="@drawable/date_icon"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_weight="1"-->
+    <!--        android:hint="@string/dd">-->
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/month_input"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="@string/mm"
+    <!--        <com.google.android.material.textfield.TextInputEditText-->
+    <!--            android:id="@+id/day_input"-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:hint="@string/dd"-->
+    <!--            android:inputType="number"-->
+    <!--            android:maxLength="2"-->
+    <!--            android:padding="16dp"-->
+    <!--            android:textSize="18sp" />-->
+    <!--    </com.google.android.material.textfield.TextInputLayout>-->
 
-            android:inputType="number"
-            android:maxLength="2"
-            android:padding="16dp"
-            android:textSize="18sp" />
-    </com.google.android.material.textfield.TextInputLayout>
+    <!--    <com.google.android.material.textview.MaterialTextView-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:text="@string/forwardSlash"-->
+    <!--        android:textSize="32sp" />-->
 
-    <com.google.android.material.textview.MaterialTextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/forwardSlash"
-        android:textSize="32sp" />
+    <!--    <com.google.android.material.textfield.TextInputLayout-->
+    <!--        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"-->
+    <!--        app:counterEnabled="true"-->
+    <!--        app:counterMaxLength="3"-->
+    <!--        app:endIconMode="clear_text"-->
+    <!--        app:errorEnabled="true"-->
+    <!--        app:errorIconDrawable="@drawable/error_icon"-->
+    <!--        app:helperText="Required*"-->
+    <!--        app:startIconDrawable="@drawable/date_icon"-->
+    <!--        android:layout_width="0dp"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_weight="1"-->
+    <!--        android:hint="@string/mm">-->
+
+    <!--        <com.google.android.material.textfield.TextInputEditText-->
+    <!--            android:id="@+id/month_input"-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:hint="@string/mm"-->
+
+    <!--            android:inputType="number"-->
+    <!--            android:maxLength="2"-->
+    <!--            android:padding="16dp"-->
+    <!--            android:textSize="18sp" />-->
+    <!--    </com.google.android.material.textfield.TextInputLayout>-->
+
+    <!--    <com.google.android.material.textview.MaterialTextView-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:text="@string/forwardSlash"-->
+    <!--        android:textSize="32sp" />-->
 
 
-    <com.google.android.material.textfield.TextInputLayout
-        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
-        app:counterEnabled="true"
-        app:counterMaxLength="3"
-        app:endIconMode="clear_text"
-        app:errorEnabled="true"
-        app:errorIconDrawable="@drawable/error_icon"
-        app:helperText="Required*"
-        app:startIconDrawable="@drawable/age_icon"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="2"
-        android:hint="@string/yyyy">
+    <!--    <com.google.android.material.textfield.TextInputLayout-->
+    <!--        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"-->
+    <!--        app:counterEnabled="true"-->
+    <!--        app:counterMaxLength="3"-->
+    <!--        app:endIconMode="clear_text"-->
+    <!--        app:errorEnabled="true"-->
+    <!--        app:errorIconDrawable="@drawable/error_icon"-->
+    <!--        app:helperText="Required*"-->
+    <!--        app:startIconDrawable="@drawable/age_icon"-->
+    <!--        android:layout_width="0dp"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_weight="2"-->
+    <!--        android:hint="@string/yyyy">-->
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/year_input"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/yyyy"
-            android:inputType="number"
-            android:maxLength="4"
-            android:padding="16dp"
-            android:textSize="18sp" />
-    </com.google.android.material.textfield.TextInputLayout>
+    <!--        <com.google.android.material.textfield.TextInputEditText-->
+    <!--            android:id="@+id/year_input"-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:hint="@string/yyyy"-->
+    <!--            android:inputType="number"-->
+    <!--            android:maxLength="4"-->
+    <!--            android:padding="16dp"-->
+    <!--            android:textSize="18sp" />-->
+    <!--    </com.google.android.material.textfield.TextInputLayout>-->
 
-</LinearLayout>
+    <!--</LinearLayout>-->

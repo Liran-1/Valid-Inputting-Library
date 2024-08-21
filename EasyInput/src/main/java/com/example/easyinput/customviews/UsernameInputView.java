@@ -18,6 +18,10 @@ public class UsernameInputView extends TextInputLayout {
 
     private TextInputEditText user_ETXT_enterYourUsername;
 
+    private int minLength = 3; // Default minimum length
+
+
+
     public UsernameInputView(@NonNull Context context) {
         super(context);
         init(context);
@@ -38,6 +42,10 @@ public class UsernameInputView extends TextInputLayout {
         initViews();
     }
 
+    private void findViews() {
+        user_ETXT_enterYourUsername = findViewById(R.id.username_ETXT_enterUsername);
+    }
+
     private void initViews() {
         user_ETXT_enterYourUsername.addTextChangedListener(new TextWatcher() {
             @Override
@@ -52,13 +60,31 @@ public class UsernameInputView extends TextInputLayout {
 
             @Override
             public void afterTextChanged(Editable s) {
-
+                String usernameText = s.toString().trim();
+                String errorMessage = validateUsername(usernameText);
+                setError(errorMessage);
             }
         });
     }
 
-    private void findViews() {
-        user_ETXT_enterYourUsername = findViewById(R.id.username_ETXT_enterUsername);
+
+    public void setMinLength(int minLength) {
+        if (minLength <= 0) {
+            throw new IllegalArgumentException("Minimum length must be greater than 0");
+        }
+        this.minLength = minLength;
+    }
+
+    private String validateUsername(String usernameText) {
+        if (usernameText.isEmpty()) {
+            return "Username is required";
+        }
+
+        if (usernameText.length() < minLength) {
+            return String.format("Username must be at least %d characters long", minLength);
+        }
+
+        return null; // No error
     }
 
 

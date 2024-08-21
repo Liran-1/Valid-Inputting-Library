@@ -1,7 +1,5 @@
 package com.example.easyinput.customviews;
 
-import static androidx.core.content.res.TypedArrayUtils.getText;
-
 import android.content.Context;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -12,7 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.example.easyinput.R;
-import com.example.easyinput.utils.ValidationUtils;
+import com.example.easyinput.utils.Constants;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -56,13 +54,28 @@ public class EmailInputView extends TextInputLayout {
 
             @Override
             public void afterTextChanged(Editable s) {
-
+                String emailText = s.toString().trim();
+                String errorMessage = validateEmail(emailText);
+                setError(errorMessage);
             }
         });
     }
 
     private void findViews() {
         email_ETXT_enterYourEmail = findViewById(R.id.email_ETXT_enterYourEmail);
+    }
+
+    private String validateEmail(String emailText) {
+        if (emailText.isEmpty()) {
+            return "Email is required";
+        }
+
+        // Check for a valid email format
+        if (!emailText.matches(Constants.EMAIL_REGEX_2)) {
+            return "Invalid email format";
+        }
+
+        return null; // No error
     }
 
 

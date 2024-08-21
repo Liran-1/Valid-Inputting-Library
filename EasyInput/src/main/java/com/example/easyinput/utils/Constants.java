@@ -4,7 +4,12 @@ public class Constants {
 
     private Constants() {}
 
+    public static final int MAXIMUM_AGE = 120;
+    public static final int MINIMUM_AGE = 0;
+
     public static final String EMAIL_REGEX = "^(?=.{1,64}@)[A-Za-z0-9_-]+(\\\\.[A-Za-z0-9_-]+)*@[^-][A-Za-z0-9-]+(\\\\.[A-Za-z0-9-]+)*(\\\\.[A-Za-z]{2,})$";
+    public static final String EMAIL_REGEX_2 = "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}";
+
 
 
 
