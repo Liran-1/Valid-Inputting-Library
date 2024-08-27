@@ -4,7 +4,6 @@ import android.content.Context;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.widget.LinearLayout;
 
@@ -15,8 +14,6 @@ import com.example.easyinput.utils.Constants;
 import com.example.easyinput.validators.PasswordValidator;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
-
-import java.util.Objects;
 
 public class PasswordInputView extends LinearLayout {
 
@@ -55,10 +52,17 @@ public class PasswordInputView extends LinearLayout {
         LayoutInflater.from(context).inflate(R.layout.password_input_view, this, true);
 
         findViews();
-        initVIews();
+        initViews();
     }
 
-    private void initVIews() {
+    private void findViews() {
+        password_TIL_enterYourPassword = findViewById(R.id.password_TIL_enterYourPassword);
+        password_TIL_confirmYourPassword = findViewById(R.id.password_TIL_confirmYourPassword);
+        password_ETXT_enterYourPassword = findViewById(R.id.password_ETXT_enterYourPassword);
+        password_ETXT_confirmYourPassword = findViewById(R.id.password_ETXT_confirmYourPassword);
+    }
+
+    private void initViews() {
         password_ETXT_enterYourPassword.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -72,9 +76,10 @@ public class PasswordInputView extends LinearLayout {
 
             @Override
             public void afterTextChanged(Editable s) {
-                String passwordText = s.toString().trim();
-                String errorMessage = passwordValidator.validatePassword(passwordText);
-                password_TIL_enterYourPassword.setError(errorMessage);
+                updatePasswordField(s.toString().trim());
+
+                String confirmPassword = password_ETXT_confirmYourPassword.getText().toString();
+                updateConfirmPasswordField(confirmPassword);
             }
         });
 
@@ -89,75 +94,46 @@ public class PasswordInputView extends LinearLayout {
 
             @Override
             public void afterTextChanged(Editable s) {
-                String firstPasswordText = password_ETXT_enterYourPassword.getText().toString().trim();
-                if (firstPasswordText.isEmpty()) {
-                    return;
-                }
-                String confirmPasswordText = s.toString().trim();
-                String errorMessage = passwordValidator.validateConfirmPassword(firstPasswordText, confirmPasswordText);
-                password_TIL_confirmYourPassword.setError(errorMessage);
+                updateConfirmPasswordField(s.toString().trim());
             }
         });
     }
 
-    private String validateConfirmPassword(String confirmPasswordText) {
-        String firstPassword = Objects.requireNonNull(password_ETXT_enterYourPassword.getText()).toString();
-        if (!firstPassword.equals(confirmPasswordText)) {
-            return "Passwords do not match";
-        }
-        return null;
+    private void updatePasswordField(String passwordText) {
+        String errorMessage = passwordValidator.validatePassword(passwordText);
+        password_TIL_enterYourPassword.setError(errorMessage);
     }
 
-    private String validatePassword(String password) {
-//        if (password.isEmpty()) {
-//            return false;
-//        } else
-//            if (password.matches(Constants.PASSWORD_BLACKLIST_CHARACTERS_REGEX)) {
-//            return false;
-//        } else
-        if (password.length() < Constants.PASSWORD_MINIMUM_LENGTH) {
-            return "Password is too short";
+    private void updateConfirmPasswordField(String confirmPasswordText) {
+        String firstPasswordText = password_ETXT_enterYourPassword.getText().toString().trim();
+        if (firstPasswordText.isEmpty()) {
+            password_TIL_confirmYourPassword.setError(null);
         }
-        if (mustContainDigits && !password.matches(Constants.PASSWORD_DIGITS_REGEX)) {
-            return "Password must contain digits!";
-        }
-        if (mustContainUpperCaseLetters && !password.matches(Constants.PASSWORD_UPPERCASE_LETTERS_REGEX)) {
-            return "Password must contain upper case!";
-        }
-        if (mustContainLowerCaseLetters && !password.matches(Constants.PASSWORD_LOWERCASE_LETTERS_REGEX)) {
-            return "Password must contain lower case!";
-        }
-        if (mustContainSpecialCharacters && !password.matches(Constants.PASSWORD_WHITELISTED_SPECIAL_CHARACTERS_REGEX)) {
-            return "Password must contain special characters";
-        }
-        return null;
-    }
-
-
-    private void findViews() {
-        password_TIL_enterYourPassword = findViewById(R.id.password_TIL_enterYourPassword);
-        password_TIL_confirmYourPassword = findViewById(R.id.password_TIL_confirmYourPassword);
-        password_ETXT_enterYourPassword = findViewById(R.id.password_ETXT_enterYourPassword);
-        password_ETXT_confirmYourPassword = findViewById(R.id.password_ETXT_confirmYourPassword);
+        String errorMessage = passwordValidator.validateConfirmPassword(firstPasswordText, confirmPasswordText);
+        password_TIL_confirmYourPassword.setError(errorMessage);
     }
 
     public PasswordInputView setMustContainUpperCaseLetters(boolean mustContainUpperCaseLetters) {
         this.mustContainUpperCaseLetters = mustContainUpperCaseLetters;
+        passwordValidator.setMustContainUpperCaseLetters(mustContainUpperCaseLetters);
         return this;
     }
 
     public PasswordInputView setMustContainLowerCaseLetters(boolean mustContainLowerCaseLetters) {
         this.mustContainLowerCaseLetters = mustContainLowerCaseLetters;
+        passwordValidator.setMustContainLowerCaseLetters(mustContainLowerCaseLetters);
         return this;
     }
 
     public PasswordInputView setMustContainDigits(boolean mustContainDigits) {
         this.mustContainDigits = mustContainDigits;
+        passwordValidator.setMustContainDigits(mustContainDigits);
         return this;
     }
 
     public PasswordInputView setMustContainSpecialCharacters(boolean mustContainSpecialCharacters) {
         this.mustContainSpecialCharacters = mustContainSpecialCharacters;
+        passwordValidator.setMustContainSpecialCharacters(mustContainSpecialCharacters);
         return this;
     }
 }

@@ -1,5 +1,7 @@
 package com.example.easyinput.validators;
 
+import java.util.Locale;
+
 public class AgeValidation {
 
     private int lowerLimit = 0;
@@ -23,5 +25,20 @@ public class AgeValidation {
 
     public boolean isWithinRange(int age) {
         return age >= minRange && age <= maxRange;
+    }
+
+    public static String validate(String ageText, int minAgeRange, int maxAgeRange) {
+        int age;
+        try {
+            age = Integer.parseInt(ageText);
+        } catch (NumberFormatException e) {
+            return "Invalid age format";
+        }
+
+        if (age < minAgeRange || age > maxAgeRange) {
+            return String.format(Locale.getDefault(),"Age must be within the range %d to %d", minAgeRange, maxAgeRange);
+        }
+
+        return null; // No error
     }
 }

@@ -52,7 +52,6 @@ public class UrlInputView extends TextInputLayout {
         LayoutInflater.from(context).inflate(R.layout.url_input_view, this, true);
 
         findViews();
-
         initViews();
     }
 
@@ -77,35 +76,16 @@ public class UrlInputView extends TextInputLayout {
                 String url = s.toString().trim();
                 String errorMessage = validateUrl(url);
                 setError(errorMessage);
-
-
-//                if (url.isEmpty()) {
-//                    url_TIL_enterYourUrl.setError(null);
-//                    return;
-//                }
-//
-//                if (mustContainProtocol && !hasValidProtocol(url)) {
-//                    url_TIL_enterYourUrl.setError("URL must start with http://, https://, or ftp://");
-//                } else if (mustContainWWWPrefix && !hasValidWWWPrefix(url)) {
-//                    url_TIL_enterYourUrl.setError("URL must start with www.");
-//                } else if (!hasValidDomain(url)) {
-//                    url_TIL_enterYourUrl.setError("Invalid domain. Must be a valid domain name.");
-//                } else if (!isValidPath(url)) {
-//                    url_TIL_enterYourUrl.setError("Invalid URL path.");
-//                } else {
-//                    url_TIL_enterYourUrl.setError(null); // Clear any previous errors
-//                }
             }
         });
     }
 
     private String validateUrl(String url) {
-        setMustContainProtocol(false);
         if (url.isEmpty()) {
             return null;
         }
         if (mustContainProtocol && !hasValidProtocol(url)) {
-            return "URL must start with http://, https://, or ftp://";
+            return "URL must start with http://, https://";
         }
         if (mustContainWWWPrefix && !hasValidWWWPrefix(url)) {
             return "URL must start with www.";
@@ -120,11 +100,11 @@ public class UrlInputView extends TextInputLayout {
     }
 
     private boolean hasValidProtocol(String url) {
-        return url.matches("^(https?|ftp):\\/\\/.*");
+        return url.matches("^(https?):\\/\\/.*");
     }
 
     private boolean hasValidWWWPrefix(String url) {
-        String protocolWithWWWPrefix = Constants.URL_PROTOCOL_REGEX + "?" + Constants.URL_PREFIX_REGEX + ".*";
+        String protocolWithWWWPrefix = /*Constants.URL_PROTOCOL_REGEX + "?" +*/ Constants.URL_PREFIX_REGEX + ".*";
         return url.matches(protocolWithWWWPrefix);
 //        return url.matches("^(https?|ftp):\\/\\/www\\..*") || url.matches("^(www\\..*)");
     }

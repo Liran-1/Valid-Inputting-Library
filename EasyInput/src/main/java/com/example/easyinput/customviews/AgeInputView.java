@@ -11,6 +11,7 @@ import androidx.annotation.Nullable;
 
 import com.example.easyinput.R;
 import com.example.easyinput.utils.Constants;
+import com.example.easyinput.validators.AgeValidation;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -18,9 +19,6 @@ public class AgeInputView extends TextInputLayout {
 
     private TextInputEditText age_ETXT_enterYourAge;
 
-
-    private int minAge = 0;
-    private int maxAge = 120;
     private int minAgeRange = 0;
     private int maxAgeRange = 120;
 
@@ -71,22 +69,6 @@ public class AgeInputView extends TextInputLayout {
         });
     }
 
-    public void setMinAge(int minAge) {
-        validateAgeRange(minAge, "Minimum age");
-        if (minAge > maxAge) {
-            throw new IllegalArgumentException("Minimum age cannot be greater than maximum age");
-        }
-        this.minAge = minAge;
-    }
-
-    public void setMaxAge(int maxAge) {
-        validateAgeRange(maxAge, "Maximum age");
-        if (maxAge < minAge) {
-            throw new IllegalArgumentException("Maximum age cannot be less than minimum age");
-        }
-        this.maxAge = maxAge;
-    }
-
     public void setMinAgeRange(int minAgeRange) {
         validateAgeRange(minAgeRange, "Minimum age range");
         if (minAgeRange > maxAgeRange) {
@@ -106,33 +88,17 @@ public class AgeInputView extends TextInputLayout {
     }
 
     private void validateAgeRange(int ageInput, String inputTypeStr) {
-        if (ageInput < Constants.MINIMUM_AGE || ageInput > Constants.MAXIMUM_AGE) {
+        if (ageInput < Constants.AGE_MINIMUM_AGE || ageInput > Constants.AGE_MAXIMUM_AGE) {
             throw new IllegalArgumentException(String.format("%s must be between %d and %d",
-                    inputTypeStr, Constants.MINIMUM_AGE, Constants.MAXIMUM_AGE));
+                    inputTypeStr, Constants.AGE_MINIMUM_AGE, Constants.AGE_MAXIMUM_AGE));
         }
     }
 
     private String validateAge(String ageText) {
-
-        int age;
-        try {
-            age = Integer.parseInt(ageText);
-        } catch (NumberFormatException e) {
-            return "Invalid age format";
-        }
-
-        if (age < minAge || age > maxAge) {
-            return String.format("Age must be between %d and %d", minAge, maxAge);
-        }
-
-        if (age < minAgeRange || age > maxAgeRange) {
-            return String.format("Age must be within the range %d to %d", minAgeRange, maxAgeRange);
-        }
-
-        return null; // No error
+        return AgeValidation.validate(ageText, minAgeRange, maxAgeRange);
     }
 
     private void updateHelperText() {
-        setHelperText("Age must be between " + minAge + " and " + maxAge + ".");
+        setHelperText("Age must be between " + Constants.AGE_MINIMUM_AGE + " and " + Constants.AGE_MAXIMUM_AGE + ".");
     }
 }
