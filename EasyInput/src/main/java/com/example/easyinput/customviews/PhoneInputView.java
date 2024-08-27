@@ -25,6 +25,7 @@ public class PhoneInputView extends LinearLayout {
     private Spinner phone_SPN_countrySpinner;
     private Map<String, String> countryPrefixes;
     private String currentPrefix = "";
+    private String previousPrefix = "";
 
     public PhoneInputView(@NonNull Context context) {
         super(context);
@@ -84,6 +85,7 @@ public class PhoneInputView extends LinearLayout {
                 String selectedPrefix = getCountryPrefix(position);
                 if (!selectedPrefix.equals(currentPrefix)) {
                     updatePhoneNumberPrefix(selectedPrefix);
+                    previousPrefix = currentPrefix;
                     currentPrefix = selectedPrefix;
                 }
             }
@@ -137,7 +139,8 @@ public class PhoneInputView extends LinearLayout {
         String phoneNumber = phone_ETXT_enterYourPhone.getText().toString();
         // Remove the old prefix if it exists
         if (phoneNumber.startsWith(currentPrefix)) {
-            phoneNumber = phoneNumber.substring(currentPrefix.length());
+            phoneNumber = phoneNumber.substring(previousPrefix.length());
+            formatPhoneNumber(phoneNumber);
         }
 
         phone_ETXT_enterYourPhone.setText(prefix + phoneNumber);

@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.example.easyinput.R;
+import com.example.easyinput.utils.Constants;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -82,6 +83,10 @@ public class UsernameInputView extends TextInputLayout {
 
         if (usernameText.length() < minLength) {
             return String.format("Username must be at least %d characters long", minLength);
+        }
+
+        if (!usernameText.matches(Constants.USERNAME_REGEX)) {
+            return "Username can only contain letters with numbers, dots, dashes and underscores";
         }
 
         return null; // No error

@@ -12,8 +12,11 @@ import androidx.annotation.Nullable;
 
 import com.example.easyinput.R;
 import com.example.easyinput.utils.Constants;
+import com.example.easyinput.validators.PasswordValidator;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+
+import java.util.Objects;
 
 public class PasswordInputView extends LinearLayout {
 
@@ -21,10 +24,12 @@ public class PasswordInputView extends LinearLayout {
     private TextInputLayout password_TIL_confirmYourPassword;
     private TextInputEditText password_ETXT_enterYourPassword;
     private TextInputEditText password_ETXT_confirmYourPassword;
-    private boolean mustContainUpperCaseLetters = false,
-            mustContainLowerCaseLetters = false,
-            mustContainDigits = false,
-            mustContainSpecialCharacters = false;
+    private boolean mustContainUpperCaseLetters = true,
+            mustContainLowerCaseLetters = true,
+            mustContainDigits = true,
+            mustContainSpecialCharacters = true;
+
+    private PasswordValidator passwordValidator = new PasswordValidator();
 
     public PasswordInputView(Context context) {
         super(context);
@@ -51,7 +56,6 @@ public class PasswordInputView extends LinearLayout {
 
         findViews();
         initVIews();
-
     }
 
     private void initVIews() {
@@ -68,11 +72,9 @@ public class PasswordInputView extends LinearLayout {
 
             @Override
             public void afterTextChanged(Editable s) {
-                Log.d("CHANGED", s.toString());
-                if (!isValidPassword(s.toString())) {
-                    password_TIL_confirmYourPassword.setErrorEnabled(true);
-                }
-                password_TIL_confirmYourPassword.setErrorEnabled(false);
+                String passwordText = s.toString().trim();
+                String errorMessage = passwordValidator.validatePassword(passwordText);
+                password_TIL_enterYourPassword.setError(errorMessage);
             }
         });
 
@@ -87,32 +89,48 @@ public class PasswordInputView extends LinearLayout {
 
             @Override
             public void afterTextChanged(Editable s) {
-                if (!isValidPassword(s.toString())) {
-                    password_TIL_confirmYourPassword.setErrorEnabled(true);
-                    password_TIL_confirmYourPassword.setError("Password is invalid.");
+                String firstPasswordText = password_ETXT_enterYourPassword.getText().toString().trim();
+                if (firstPasswordText.isEmpty()) {
+                    return;
                 }
-                password_TIL_confirmYourPassword.setErrorEnabled(false);
+                String confirmPasswordText = s.toString().trim();
+                String errorMessage = passwordValidator.validateConfirmPassword(firstPasswordText, confirmPasswordText);
+                password_TIL_confirmYourPassword.setError(errorMessage);
             }
         });
     }
 
-    private boolean isValidPassword(String password) {
-        if (password.isEmpty()) {
-            return false;
-        } else if (password.matches(Constants.PASSWORD_BLACKLIST_CHARACTERS_REGEX)) {
-            return false;
-        } else if (password.length() < Constants.PASSWORD_MINIMUM_LENGTH) {
-            return false;
-        } else if (mustContainDigits) {
-            return password.matches(Constants.PASSWORD_NUMBERS_REGEX);
-        } else if (mustContainUpperCaseLetters) {
-            return password.matches(Constants.PASSWORD_LARGE_LETTERS_REGEX);
-        } else if (mustContainLowerCaseLetters) {
-            return password.matches(Constants.PASSWORD_SMALL_LETTERS_REGEX);
-        } else if (mustContainSpecialCharacters) {
-            return password.matches(Constants.PASSWORD_WHITELISTED_SPECIAL_CHARACTERS_REGEX);
+    private String validateConfirmPassword(String confirmPasswordText) {
+        String firstPassword = Objects.requireNonNull(password_ETXT_enterYourPassword.getText()).toString();
+        if (!firstPassword.equals(confirmPasswordText)) {
+            return "Passwords do not match";
         }
-        return true;
+        return null;
+    }
+
+    private String validatePassword(String password) {
+//        if (password.isEmpty()) {
+//            return false;
+//        } else
+//            if (password.matches(Constants.PASSWORD_BLACKLIST_CHARACTERS_REGEX)) {
+//            return false;
+//        } else
+        if (password.length() < Constants.PASSWORD_MINIMUM_LENGTH) {
+            return "Password is too short";
+        }
+        if (mustContainDigits && !password.matches(Constants.PASSWORD_DIGITS_REGEX)) {
+            return "Password must contain digits!";
+        }
+        if (mustContainUpperCaseLetters && !password.matches(Constants.PASSWORD_UPPERCASE_LETTERS_REGEX)) {
+            return "Password must contain upper case!";
+        }
+        if (mustContainLowerCaseLetters && !password.matches(Constants.PASSWORD_LOWERCASE_LETTERS_REGEX)) {
+            return "Password must contain lower case!";
+        }
+        if (mustContainSpecialCharacters && !password.matches(Constants.PASSWORD_WHITELISTED_SPECIAL_CHARACTERS_REGEX)) {
+            return "Password must contain special characters";
+        }
+        return null;
     }
 
 
