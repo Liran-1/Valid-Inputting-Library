@@ -30,10 +30,12 @@ public class UsernameInputView extends TextInputLayout {
 
     public UsernameInputView(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
+        init(context);
     }
 
     public UsernameInputView(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        init(context);
     }
 
     private void init(Context context) {
