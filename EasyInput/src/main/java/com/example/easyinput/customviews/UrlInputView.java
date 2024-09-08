@@ -20,16 +20,21 @@ public class UrlInputView extends TextInputLayout {
 
 
     private TextInputEditText url_ETXT_enterYourUrl;
-    public boolean mustContainProtocol = true;
-    public boolean mustContainWWWPrefix = true;
+    public boolean requireProtocol = true;
+    public boolean requireWWWPrefix = true;
 
-    public UrlInputView setMustContainProtocol(boolean mustContainProtocol) {
-        this.mustContainProtocol = mustContainProtocol;
+    public UrlInputView setRequireProtocol(boolean requireProtocol) {
+        this.requireProtocol = requireProtocol;
         return this;
     }
 
-    public UrlInputView setMustContainWWWPrefix(boolean mustContainWWWPrefix) {
-        this.mustContainWWWPrefix = mustContainWWWPrefix;
+    public UrlInputView setRequireWWWPrefix(boolean requireWWWPrefix) {
+        this.requireWWWPrefix = requireWWWPrefix;
+        return this;
+    }
+    public UrlInputView setURLRequirements(boolean mustContainWWWPrefix, boolean requireProtocol) {
+        this.requireProtocol = requireProtocol;
+        this.requireWWWPrefix = mustContainWWWPrefix;
         return this;
     }
 
@@ -51,6 +56,7 @@ public class UrlInputView extends TextInputLayout {
     private void init(Context context) {
         LayoutInflater.from(context).inflate(R.layout.url_input_view, this, true);
 
+        updateHelperText();
         findViews();
         initViews();
     }
@@ -81,13 +87,14 @@ public class UrlInputView extends TextInputLayout {
     }
 
     private String validateUrl(String url) {
+        updateHelperText();
         if (url.isEmpty()) {
             return null;
         }
-        if (mustContainProtocol && !hasValidProtocol(url)) {
+        if (requireProtocol && !hasValidProtocol(url)) {
             return "URL must start with http://, https://";
         }
-        if (mustContainWWWPrefix && !hasValidWWWPrefix(url)) {
+        if (requireWWWPrefix && !hasValidWWWPrefix(url)) {
             return "URL must start with www.";
         }
         if (!hasValidDomain(url)) {
@@ -126,5 +133,12 @@ public class UrlInputView extends TextInputLayout {
 //                url.matches("^(?:www\\.)?[a-zA-Z0-9-]+\\.[a-zA-Z]{2,}(?:\\/[^\\s]*)?$") ||
 //                url.matches("^[a-zA-Z0-9-]+\\.[a-zA-Z]{2,}(?:\\/[^\\s]*)?$");
 //    }
+
+    private void updateHelperText() {
+        setHelperText("URL must contain: " +
+                (requireProtocol ? "http:// or https://." : "") +
+                (requireProtocol ? " www." : "") +
+                "latin characters and a valid TLD");
+    }
 
 }

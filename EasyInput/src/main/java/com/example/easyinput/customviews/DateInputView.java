@@ -92,19 +92,6 @@ public class DateInputView extends TextInputLayout {
         }
     }
 
-//    private void showDatePickerDialog(Context context) {
-//        Calendar calendar = Calendar.getInstance();
-//        int year = calendar.get(Calendar.YEAR);
-//        int month = calendar.get(Calendar.MONTH);
-//        int day = calendar.get(Calendar.DAY_OF_MONTH);
-//
-//        new DatePickerDialog(context, (view, year1, month1, dayOfMonth) -> {
-//            Calendar selectedDate = Calendar.getInstance();
-//            selectedDate.set(year1, month1, dayOfMonth);
-//            date_ETXT_enterDate.setText(dateFormat.format(selectedDate.getTime()));
-//        }, year, month, day).show();
-//    }
-
     public boolean isDateValid() {
         String dateText = date_ETXT_enterDate.getText().toString();
         try {
@@ -121,7 +108,6 @@ public class DateInputView extends TextInputLayout {
             return "Date is required";
         }
 
-//        SimpleDateFormat sdf = new SimpleDateFormat(dateFormat);
         dateFormat.setLenient(false);
         try {
             dateFormat.parse(dateText);
@@ -161,6 +147,7 @@ public class DateInputView extends TextInputLayout {
     }
 
     private void showDatePickerDialog() {
+        updateHelperText();
         Calendar calendar = Calendar.getInstance();
         int year = calendar.get(Calendar.YEAR);
         int month = calendar.get(Calendar.MONTH);
@@ -186,6 +173,10 @@ public class DateInputView extends TextInputLayout {
         }
 
         datePickerDialog.show();
+    }
+
+    private void updateHelperText() {
+        setHelperText("Date must be between " + minDate + " and " + maxDate + ".");
     }
 
 }

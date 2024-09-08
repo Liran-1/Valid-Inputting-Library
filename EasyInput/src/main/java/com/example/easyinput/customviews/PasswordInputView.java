@@ -10,7 +10,6 @@ import android.widget.LinearLayout;
 import androidx.annotation.Nullable;
 
 import com.example.easyinput.R;
-import com.example.easyinput.utils.Constants;
 import com.example.easyinput.validators.PasswordValidator;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -21,10 +20,10 @@ public class PasswordInputView extends LinearLayout {
     private TextInputLayout password_TIL_confirmYourPassword;
     private TextInputEditText password_ETXT_enterYourPassword;
     private TextInputEditText password_ETXT_confirmYourPassword;
-    private boolean mustContainUpperCaseLetters = true,
-            mustContainLowerCaseLetters = true,
-            mustContainDigits = true,
-            mustContainSpecialCharacters = true;
+    private boolean requireUpperCaseLetters = true,
+            requireLowerCaseLetters = true,
+            requireDigits = true,
+            requireSpecialCharacters = true;
 
     private PasswordValidator passwordValidator = new PasswordValidator();
 
@@ -63,6 +62,7 @@ public class PasswordInputView extends LinearLayout {
     }
 
     private void initViews() {
+        updateHelperText();
         password_ETXT_enterYourPassword.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -113,27 +113,55 @@ public class PasswordInputView extends LinearLayout {
         password_TIL_confirmYourPassword.setError(errorMessage);
     }
 
-    public PasswordInputView setMustContainUpperCaseLetters(boolean mustContainUpperCaseLetters) {
-        this.mustContainUpperCaseLetters = mustContainUpperCaseLetters;
-        passwordValidator.setMustContainUpperCaseLetters(mustContainUpperCaseLetters);
+    public PasswordInputView setRequireUpperCaseLetters(boolean requireUpperCaseLetters) {
+        this.requireUpperCaseLetters = requireUpperCaseLetters;
+        passwordValidator.setRequireUpperCaseLetters(requireUpperCaseLetters);
         return this;
     }
 
-    public PasswordInputView setMustContainLowerCaseLetters(boolean mustContainLowerCaseLetters) {
-        this.mustContainLowerCaseLetters = mustContainLowerCaseLetters;
-        passwordValidator.setMustContainLowerCaseLetters(mustContainLowerCaseLetters);
+    public PasswordInputView setRequireLowerCaseLetters(boolean requireLowerCaseLetters) {
+        this.requireLowerCaseLetters = requireLowerCaseLetters;
+        passwordValidator.setRequireLowerCaseLetters(requireLowerCaseLetters);
         return this;
     }
 
-    public PasswordInputView setMustContainDigits(boolean mustContainDigits) {
-        this.mustContainDigits = mustContainDigits;
-        passwordValidator.setMustContainDigits(mustContainDigits);
+    public PasswordInputView setRequireDigits(boolean requireDigits) {
+        this.requireDigits = requireDigits;
+        passwordValidator.setRequireDigits(requireDigits);
         return this;
     }
 
-    public PasswordInputView setMustContainSpecialCharacters(boolean mustContainSpecialCharacters) {
-        this.mustContainSpecialCharacters = mustContainSpecialCharacters;
-        passwordValidator.setMustContainSpecialCharacters(mustContainSpecialCharacters);
+    public PasswordInputView setRequireSpecialCharacters(boolean requireSpecialCharacters) {
+        this.requireSpecialCharacters = requireSpecialCharacters;
+        passwordValidator.setRequireSpecialCharacters(requireSpecialCharacters);
         return this;
+    }
+
+    public PasswordInputView setPasswordRequirements(boolean requireUpperCaseLetters, boolean requireLowerCaseLetters,
+                                                     boolean requireDigits, boolean requireSpecialCharacters) {
+        this.requireUpperCaseLetters = requireUpperCaseLetters;
+        passwordValidator.setRequireUpperCaseLetters(requireUpperCaseLetters);
+
+        this.requireLowerCaseLetters = requireLowerCaseLetters;
+        passwordValidator.setRequireLowerCaseLetters(requireLowerCaseLetters);
+
+        this.requireDigits = requireDigits;
+        passwordValidator.setRequireDigits(requireDigits);
+
+        this.requireSpecialCharacters = requireSpecialCharacters;
+        passwordValidator.setRequireSpecialCharacters(requireSpecialCharacters);
+        return this;
+    }
+
+
+    private void updateHelperText() {
+        password_TIL_enterYourPassword.setHelperText("Password " +
+                ((requireUpperCaseLetters || requireLowerCaseLetters ||
+                        requireDigits || requireSpecialCharacters) ? "must contain" : "") +
+                (requireUpperCaseLetters ? " upper case letters," : "") +
+                (requireLowerCaseLetters ? " lower case letters," : "") +
+                (requireDigits ? " digits," : "") +
+                (requireSpecialCharacters ? " special characters" : "") +
+                ".");
     }
 }

@@ -49,6 +49,8 @@ public class AgeInputView extends TextInputLayout {
     }
 
     private void initViews() {
+        updateHelperText();
+
         age_ETXT_enterYourAge.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -95,10 +97,12 @@ public class AgeInputView extends TextInputLayout {
     }
 
     private String validateAge(String ageText) {
+        setMaxAgeRange(70);
+        setMinAgeRange(30);
         return AgeValidation.validate(ageText, minAgeRange, maxAgeRange);
     }
 
     private void updateHelperText() {
-        setHelperText("Age must be between " + Constants.AGE_MINIMUM_AGE + " and " + Constants.AGE_MAXIMUM_AGE + ".");
+        setHelperText("Age must be between " + minAgeRange + " and " + maxAgeRange + ".");
     }
 }
